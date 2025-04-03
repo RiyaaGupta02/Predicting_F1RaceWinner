@@ -48,5 +48,5 @@ Key Insights We Wanted to Explore:
 - Using GBM, we achieved a model that predicts final race positions based on qualifying & practice data.
 
 ### More Improvements to do?
-- - Would be to try training it on other models and seeing the impact + accuracy.
-  - Also it'll be including the weather & track condition to check accuracy
+ - Would be to try training it on other models and seeing the impact + accuracy.
+  - Also it'll be including the weather & track condition to check further on its accuracy & increasing it more.

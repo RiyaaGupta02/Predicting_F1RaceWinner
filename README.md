@@ -11,7 +11,7 @@ This project aims to predict Formula 1 race winners based on qualifying data, la
 The goal is to analyze historical qualifying performances and lap times to predict the final race winner. We use Gradient Boosting Regressor (GBM) due to its strong performance on structured numerical data.
 ![image_alt](GradientBoosting2.png)
 ![image_alt](GradientBoosting1.png)
-![image_alt]{Gradient_Boosting(1).jpeg}
+![image_alt](Gradient_Boosting(1).jpeg)
 
 
 ### Dataset & Preprocessing

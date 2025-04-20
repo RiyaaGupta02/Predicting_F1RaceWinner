@@ -1,4 +1,4 @@
-#### One of ML_MiniProject is Predicting the F1 Race Winner the readme is for the following 
+#### Working on an ML project predicting the F1 Race Winner, creating the model for predicting the winner. The readme is for the following:
 
 
 

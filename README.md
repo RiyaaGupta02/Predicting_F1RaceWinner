@@ -1,7 +1,9 @@
 # 🏎️ F1 Race Winner Prediction using Gradient Boosting + SHAP + Ensemble Learning
 
 This project aims to predict Formula 1 race winners using real-world qualifying and lap-time data, enhanced by machine learning techniques. We leverage Gradient Boosting Models (GBM), SHAP analysis for interpretability, and ensemble learning for improved prediction accuracy.
-![image](https://github.com/user-attachments/assets/4895ed1e-2110-40c2-bdbf-077e9aabc706)
+
+![image](https://github.com/user-attachments/assets/46224125-2f64-4fe1-b240-b9b59fd034fc)
+
 
 ---
 

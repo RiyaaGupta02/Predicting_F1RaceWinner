@@ -1,60 +1,89 @@
-#### Working on an ML project predicting the F1 Race Winner, creating the model for predicting the winner. The readme is for the following:
+# 🏎️ F1 Race Winner Prediction using Gradient Boosting + SHAP + Ensemble Learning
 
+This project aims to predict Formula 1 race winners using real-world qualifying and lap-time data, enhanced by machine learning techniques. We leverage Gradient Boosting Models (GBM), SHAP analysis for interpretability, and ensemble learning for improved prediction accuracy.
+![image](https://github.com/user-attachments/assets/4895ed1e-2110-40c2-bdbf-077e9aabc706)
 
+---
 
+## 🚀 Project Overview
 
+The goal is to analyze historical qualifying performances and lap times to predict the final race winner. Gradient Boosting Regressor (GBM) was selected due to its strong performance with structured data. Additionally, we applied SHAP (SHapley Additive exPlanations) for feature impact analysis and ensemble modeling to blend multiple approaches for a more robust outcome.
 
-# 🏎️F1 Race Winner Prediction using Gradient Boosting
-This project aims to predict Formula 1 race winners based on qualifying data, lap times, Drivers team, sector performance, and other race metrics using a Gradient Boosting Model (GBM).
+> 🏁 **Predicted Winner of the 2025 Australian GP: Lando Norris**
 
-## 🚀Project Overview
-The goal is to analyze historical qualifying performances and lap times to predict the final race winner. We use Gradient Boosting Regressor (GBM) due to its strong performance on structured numerical data.
-![image_alt](GradientBoosting2.png)
-![image_alt](GradientBoosting1.png)
-![image_alt](Gradient_Boosting(1).jpeg)
+---
 
-![image](https://github.com/user-attachments/assets/47f89f42-8df9-4afe-a5b7-44a8a871eb24)
+## 📊 Dataset & Preprocessing
 
+### 1️⃣ Data Sources:
+- **Qualifying Data:** Manually collected from F1’s official site (includes Q1, Q2, Q3, driver & team).
+- **Final Training Data:** Lap times, sector info, tire usage, etc., fetched via [FastF1 API](https://theoehrly.github.io/Fast-F1/).
+- **Historical Results:** Aggregated from FastF1 for training.
 
+### 2️⃣ Preprocessing Steps:
+- **Mapped Categorical Features:** Converted driver & team names into numerical IDs.
+- **Imputation:** Filled missing values (sector/lap times) using mean imputation.
+- **Time Conversion:** Converted qualifying times (MM:SS.sss) into seconds.
+- **Feature Selection:** AvgLapTime, BestSectorTime, qualifying lap times were chosen.
+- **Normalization:** StandardScaler applied to all numerical features.
 
+---
 
-### Dataset & Preprocessing
-1️⃣ Data Sources -->
-- Qualifying Data (manually took from the F1 Race Site) → Contains Q1, Q2, Q3 times, driver & team info.
-- Final Training Data → Includes lap times, sector times, tire usage, and more.
-- Here this Final Training Data is taken up from FastF1 API as here :
-- FastF1 API: Fetches lap times, race results & other all information.
-- Historical F1 Results: Processed from FastF1 for training the model. 
+## 🏗️ Model Training
 
-2️⃣ Data Preprocessing Steps -->
-- Mapped Categorical Features → Converted driver & team names to numerical IDs here mapping be similar for pre-processing dataset in Historical Data as well as of Qualifying one.
-- Handled Missing Values → Filled missing sector times & lap times using mean imputation.
-- Converted Time Formats → Transformed Q1, Q2, Q3 from MM:SS.sss to seconds.
-- Feature Selection → Selected key metrics like AvgLapTime, BestSectorTime, and qualifying performance.
-- Standardization → Applied StandardScaler to normalize numerical data.
+### ✅ Features Used:
+- **Driver, Team** (Categorical → Encoded)
+- **Q1, Q2, Q3** (Qualifying Lap Times)
+- **Laps** (Total laps completed in qualifying)
+- **AvgLapTime, BestSectorTime** (Performance indicators)
 
-## 🏗️Model Training
-#### Features Used for Training -->
-- Driver, Team (Categorical → Encoded)
-- Q1, Q2, Q3 (Qualifying Lap Times)
-- Laps (Total laps completed in qualifying)
-- AvgLapTime, BestSectorTime (Historical race performance indicators)
+### 🌟 Why Gradient Boosting?
+- Handles both categorical and numerical features efficiently
+- Captures non-linear relationships between lap behavior and race outcome
+- Uses iterative boosting to reduce error over rounds
 
-  ### Why GBM?
-  - Handles numerical & categorical data well.
-  - Learns non-linear relationships between laps occurring & race positions.
-  - Performs boosting, reducing error iteratively.
- 
-  ### 🎯 Project Ideation & Goals
-- The core idea behind this project is to analyze how well a driver performs in qualifying & practice sessions to estimate their race day performance.
+---
 
-Key Insights We Wanted to Explore:
-- Does qualifying position always translate to race success?
-- How much do sector times & lap consistency matter?
-- Can a machine learning model predict F1 race winners accurately?
-📌 Outcome:
-- Using GBM, we achieved a model that predicts final race positions based on qualifying & practice data.
+## 🤖 Ensemble Modeling
 
-### More Improvements to do?
- - Would be trying to train it on more parameters and observing how it impacts the accuracy.
-  - Also will be including the weather & track condition to check further on its accuracy plus how to make model more generic and accurate.
+To further enhance prediction reliability, we trained:
+- A **realistic lap-time-based model**
+- A **feature-weighted model** based on domain-specific importance
+
+These were blended to form an **ensemble prediction**, increasing model confidence and improving accuracy.
+
+---
+
+## 🔍 SHAP Analysis (Model Interpretability)
+
+We used SHAP (SHapley Additive exPlanations) to interpret our model's predictions. SHAP helps visualize feature importance and their contribution toward predicting the race winner.
+
+![SHAP Analysis](./assets/shap_example.png) <!-- Update path if needed -->
+
+Key insights from SHAP:
+- BestSectorTime and AvgLapTime had the highest impact.
+- Q1 and Q2 times were more influential than Q3 in some predictions.
+- Feature interactions between team and lap times mattered.
+
+---
+
+## 🎯 Project Goals & Insights
+
+- 📌 Understand how qualifying performance impacts race results.
+- 📌 Evaluate the predictive power of sector and lap times.
+- 📌 Develop a model that generalizes well across different races.
+
+> Does qualifying position always translate to race success?
+> How much do sector times & lap consistency matter?
+> Can ML predict F1 winners with reasonable accuracy?
+
+---
+
+## 🔧 Future Improvements
+
+- Include **weather** and **track condition** data to enhance the model’s generalization.
+- Extend training on additional parameters and evaluate their impact.
+- Explore real-time race prediction using live telemetry data via FastF1.
+
+---
+

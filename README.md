@@ -2,8 +2,7 @@
 
 This project aims to predict Formula 1 race winners using real-world qualifying and lap-time data, enhanced by machine learning techniques. We leverage Gradient Boosting Models (GBM), SHAP analysis for interpretability, and ensemble learning for improved prediction accuracy.
 
-![image](https://github.com/user-attachments/assets/46224125-2f64-4fe1-b240-b9b59fd034fc)
-
+![image](https://github.com/user-attachments/assets/65904534-b34c-4a0a-9c9b-e6f979df10db)
 
 ---
 
@@ -43,6 +42,11 @@ The goal is to analyze historical qualifying performances and lap times to predi
 - Handles both categorical and numerical features efficiently
 - Captures non-linear relationships between lap behavior and race outcome
 - Uses iterative boosting to reduce error over rounds
+- Below image can see how prediction happens
+
+- ![image](https://github.com/user-attachments/assets/b3dc8650-ebec-4cca-8089-0c93f2f0e395)
+
+- ![image](https://github.com/user-attachments/assets/656e1d79-86ff-4ead-a1ab-fa8aa28e6981)
 
 ---
 
@@ -60,7 +64,8 @@ These were blended to form an **ensemble prediction**, increasing model confiden
 
 We used SHAP (SHapley Additive exPlanations) to interpret our model's predictions. SHAP helps visualize feature importance and their contribution toward predicting the race winner.
 
-![SHAP Analysis](./assets/shap_example.png) <!-- Update path if needed -->
+![image](https://github.com/user-attachments/assets/fd9187d0-5800-4e1f-a6ed-3aef53e5528b)
+
 
 Key insights from SHAP:
 - BestSectorTime and AvgLapTime had the highest impact.

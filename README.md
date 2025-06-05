@@ -13,6 +13,10 @@ The goal is to analyze historical qualifying performances and lap times to predi
 ![image_alt](GradientBoosting1.png)
 ![image_alt](Gradient_Boosting(1).jpeg)
 
+![image](https://github.com/user-attachments/assets/47f89f42-8df9-4afe-a5b7-44a8a871eb24)
+
+
+
 
 ### Dataset & Preprocessing
 1️⃣ Data Sources -->

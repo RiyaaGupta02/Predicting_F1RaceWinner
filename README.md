@@ -67,8 +67,7 @@ These were blended to form an **ensemble prediction**, increasing model confiden
 
 We used SHAP (SHapley Additive exPlanations) to interpret our model's predictions. SHAP helps visualize feature importance and their contribution toward predicting the race winner.
 
-![image](https://github.com/user-attachments/assets/4cbba3b2-2d87-4867-a571-09edf5ca2f33)
-
+![image](https://github.com/user-attachments/assets/53ad13c7-a1ee-42f6-92d7-78df2ef6c522)
 
 
 Key insights from SHAP:

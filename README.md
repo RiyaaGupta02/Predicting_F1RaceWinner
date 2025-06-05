@@ -45,9 +45,11 @@ The goal is to analyze historical qualifying performances and lap times to predi
 - Below image can see how prediction happens
   
 
-- ![image](https://github.com/user-attachments/assets/b3dc8650-ebec-4cca-8089-0c93f2f0e395)
+- ![image](https://github.com/user-attachments/assets/698b3404-91c6-4072-936c-cd2853cb7699)
 
-- ![image](https://github.com/user-attachments/assets/656e1d79-86ff-4ead-a1ab-fa8aa28e6981)
+
+- ![image](https://github.com/user-attachments/assets/f8bc3ba5-597b-4743-8b85-4f17eed4c031)
+
 
 ---
 
@@ -65,7 +67,8 @@ These were blended to form an **ensemble prediction**, increasing model confiden
 
 We used SHAP (SHapley Additive exPlanations) to interpret our model's predictions. SHAP helps visualize feature importance and their contribution toward predicting the race winner.
 
-![image](https://github.com/user-attachments/assets/fd9187d0-5800-4e1f-a6ed-3aef53e5528b)
+![image](https://github.com/user-attachments/assets/4cbba3b2-2d87-4867-a571-09edf5ca2f33)
+
 
 
 Key insights from SHAP:

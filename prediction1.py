@@ -4,10 +4,42 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import precision_score, recall_score, f1_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 import shap
 
+
+# Add this function to your existing code
+def get_resume_metrics(model, X_scaled, y_train):
+    """Get key metrics for resume"""
+    
+    # Cross-validation accuracy (most important)
+    cv_scores = cross_val_score(model, X_scaled, y_train, cv=5, scoring='accuracy')
+    cv_accuracy = cv_scores.mean()
+    
+    # Additional metrics
+    y_pred = model.predict(X_scaled)
+    train_accuracy = accuracy_score(y_train, y_pred)
+    precision = precision_score(y_train, y_pred)
+    recall = recall_score(y_train, y_pred)
+    f1 = f1_score(y_train, y_pred)
+    
+    print(f"\n📊 RESUME METRICS:")
+    print("=" * 40)
+    print(f"Model Accuracy: {cv_accuracy:.1%}")
+    print(f"Precision: {precision:.3f}")
+    print(f"F1-Score: {f1:.3f}")
+    
+    return {
+        'accuracy': cv_accuracy,
+        'precision': precision,
+        'f1_score': f1
+    }
+
+
+# Main prediction function
 def run_prediction():
     # USE: Historical performance, qualifying, team strength & manually trying to add 2025 data 
     
@@ -79,7 +111,6 @@ def run_prediction():
         "Aston Martin": 0.97
     }
 
-
     # Add base features for qualifying data
     qualifying_2025["DriverSkill"] = qualifying_2025["Driver"].map(driver_skill_map)
     qualifying_2025["TeamPerformance"] = qualifying_2025["Team"].map(team_performance_map)
@@ -93,10 +124,11 @@ def run_prediction():
     top_teams = ["McLaren", "Red Bull", "Mercedes", "Ferrari"]
     qualifying_2025["IsTopTeam"] = qualifying_2025["Team"].isin(top_teams).astype(int)
     
-
     # Create qualifying advantage (how much better than expected grid position)
     expected_grid = qualifying_2025["DriverSkill"] + qualifying_2025["TeamPerformance"]
     qualifying_2025["QualifyingAdvantage"] = expected_grid.rank(ascending=False) - qualifying_2025["QualifyingPosition"]
+
+             # Historical Random Data Generation --> synthetic data to simulate historical data
     
     # Historical training data (create synthetic but realistic data)
     # This would normally come from previous seasons
@@ -110,8 +142,7 @@ def run_prediction():
         "TeamReliability": np.random.uniform(0.75, 0.95, n_samples),
         "QualifyingAdvantage": np.random.uniform(-5, 5, n_samples)
     })
-
-
+# CREATED ---> now ahead testing it
     # to have it more specific clear & realistic as not using lot of data adding new features
     # Add new features to training data
     training_data["TrackFactor"] = np.random.uniform(0.96, 1.04, n_samples)  # Random track factors for training
@@ -129,7 +160,6 @@ def run_prediction():
         top_team_bonus = -0.5 if row["IsTopTeam"] else 0  # Small advantage for top teams
         
         reliability_penalty = 0 if np.random.random() < row["TeamReliability"] else 15
-
         
         # Weighted impact
         position_change = (skill_factor * 2.5 + team_factor * 3.5 + qual_factor * 2 + 
@@ -167,7 +197,6 @@ def run_prediction():
     
     # apply custom weights by modifying feature values before scaling
     X_weighted = X_train.copy()
-
     # Scale features individually to preserve importance
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X_weighted)
@@ -179,12 +208,13 @@ def run_prediction():
     
     # Train model
     model = GradientBoostingClassifier(
-        n_estimators=150,
-        learning_rate=0.1,
+        n_estimators=150,       # this means using 150 trees
+        learning_rate=0.1,      # how much each tree contributes to the final prediction
         max_depth=6,
         random_state=42
     )
     model.fit(X_scaled, y_train)
+    resume_metrics = get_resume_metrics(model, X_scaled, y_train)  # Get classification metrics --> for this specific model
     
     # Predict for 2025 Australian GP
     X_2025 = qualifying_2025[feature_cols]
@@ -212,9 +242,7 @@ def run_prediction():
     for i, (_, row) in enumerate(results.head(5).iterrows()):
         print(f"{i+1:2d}. {row['Driver']:15s} - {row['WinProbability']:.3f} ({row['Team']})")
     
-
     print(f"\n📊 Model Performance: {model_score:.3f}")
-
           # SHAP Analysis AND PLOTTING
      # SHAP Explanation - Clean implementation
     explainer = shap.Explainer(model.predict_proba, X_scaled[:100])  # Sample for speed
@@ -227,7 +255,6 @@ def run_prediction():
     print("=" * 50)
     
     # can't do plt.show() in streamlit--> wont work so doing modifications below ---?
-
     # Calculate mean absolute SHAP values for feature importance
     feature_importance = np.abs(shap_values_positive.values).mean(0)
     importance_df = pd.DataFrame({
@@ -279,14 +306,15 @@ def run_prediction():
     # cbar = plt.colorbar(im, ax=ax2, label='SHAP Value')
     cbar = plt.colorbar(im, ax=ax2, pad=0.01)
     cbar.set_label("SHAP Value", fontsize=12)
-
     
     plt.tight_layout()
-
 # ORIGINAL RETURINING NOW FUNCTION RUN_PREDICITION RESULTS
     
-    return results, shap_values_positive, model_score, fig   # return the fig tool
+    return results, shap_values_positive, model_score, fig, resume_metrics   # return the fig tool as well as resume_metrics for model evaluation
+
 
 # Run the corrected prediction
 if __name__ == "__main__":
     results, shap_vals = run_prediction()
+
+
